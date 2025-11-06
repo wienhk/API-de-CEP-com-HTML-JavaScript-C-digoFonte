@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codigo fonte</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        pre{
+            background-color: #dcdcdc;
+            border-left: 10px solid #38b000;
+            font-size: 1em;
+            width: 770px;
+        }
+    </style>
+</head>
+<body>
+    <h1><i>Código fonte</i></h1><br>
+    <h1>HTML: </h1>
+    
+    <pre>
+        <code>
+ &lt;!DOCTYPE html>
+ &lt;html lang="pt-br">
+ &lt;head>
+ &lt;meta charset="UTF-8">
+ &lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+ &lt;title>Achador de CEP&lt;/title>
+ &lt;style>
+     body{
+         font-family: Arial, Helvetica, sans-serif;
+         background-color: gray;
+         }
+ &lt;/style>
+ &lt;/head>
+ &lt;body>
+ &lt;h1>&lt;i>Ultra &lt;span style="color:red;">MEGA&lt;/span> achador de CEP&lt;/i>&lt;/h1>
+     &lt;p>Digite abaixo o CEP para receber as informações:&lt;/p>&lt;br>
+
+     &lt;div class="centralizado">
+     &lt;input id="IDCEP" type="text" placeholder="Digite o CEP(ex: 00000-000)">
+     &lt;button onclick="BuscarCEP()">Buscar&lt;/button>
+     &lt;br>&lt;b>&lt;p id="ID1">&lt;/p>&lt;/b>
+     &lt;/div>
+
+     &lt;p style="margin-bottom: 500px;">&lt;/p>
+     &lt;p>&lt;b>Veja o código fonte!&lt;/b>&lt;/p>
+     &lt;a href="http://127.0.0.1:3000/src/CodigoFonte.html?serverWindowId=e0f559cb-e5ad-460b-bf97-efbb2f44728a">
+     &lt;button>Ir para código fonte&lt;/button>
+     &lt;/a>
+    
+     &lt;script src="js/CEP.js">&lt;/script>
+ &lt;/body>
+ &lt;/html>
+        </code>
+    </pre>
+ <p style="margin-bottom: 50px;"></p>
+ <h1>JavaScript: </h1><br>
+ <pre>
+        <code>
+ function BuscarCEP(){
+    let input = document.getElementById('IDCEP').value;
+    const ajax = new XMLHttpRequest();
+    ajax.open('GET', 'https://viacep.com.br/ws/'+input+'/json/')
+    ajax.send(document.getElementById('ID1').innerHTML = "CARREGANDO...",
+        setTimeout(function(){if(document.getElementById('ID1').innerHTML == "CARREGANDO..."){
+            document.getElementById('ID1').innerHTML = "CEP NÃO ENCONTRADO."
+        }},4000));
+    ajax.onload = function(){
+        
+        //TEXTO PARA OBJETO
+        let obj = JSON.parse(this.responseText)
+        //VALORES
+        let cep = obj.cep;
+        let regiao = obj.regiao;
+        let estado = obj.estado;
+        let uf = obj.uf;
+        let localidade = obj.localidade;
+        let ddd = obj.ddd;
+        let logradouro = obj.logradouro;
+        let bairro = obj.bairro;
+        //SAIDA
+        
+        if (cep =="undefined" || cep == null || cep == 0){
+            document.getElementById('ID1').innerHTML = "CEP NÃO ENCONTRADO"
+        }else{
+        document.getElementById('ID1').innerHTML = "Cep: "+cep+"&lt;br>Região: "+regiao+
+        "&lt;br>Estado: "+estado+"("+uf+")"+
+        "&lt;br>Localidade: "+localidade+"&lt;br>DDD: "+ddd+
+        "&lt;br>Logradouro: "+logradouro+"&lt;br>Bairro: "+bairro
+        }
+    }
+}
+        </code>
+ </pre>
+
+</body>
+</html>
